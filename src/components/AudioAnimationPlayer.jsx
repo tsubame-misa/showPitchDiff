@@ -24,6 +24,7 @@ const AudioAnimationPlayer = () => {
     let buttonChangedY = 0;
 
     let buttonW = canvasSize * 0.1;
+    let buttonWLong = canvasSize * 0.15;
     let buttonH = canvasSize * 0.05;
 
     let buttonDebugX = canvasSize * 0.3;
@@ -56,34 +57,34 @@ const AudioAnimationPlayer = () => {
       p.background(0);
 
       if (isStartAll) {
-        drawButton(buttonX, buttonY, "all ◼︎");
+        drawButton(buttonX, buttonY, "両方 ◼︎");
       } else {
-        drawButton(buttonX, buttonY, "all ▶︎");
+        drawButton(buttonX, buttonY, "両方 ▶︎");
       }
 
       if (isStartFixed) {
-        drawButton(buttonFixedX, buttonFixedY, "fiexd ◼︎");
+        drawButton(buttonFixedX, buttonFixedY, "基準音 ◼︎");
       } else {
-        drawButton(buttonFixedX, buttonFixedY, "fixed ▶︎");
+        drawButton(buttonFixedX, buttonFixedY, "基準音 ▶︎");
       }
 
       if (isStartChange) {
-        drawButton(buttonChangedX, buttonChangedY, "change ◼︎");
+        drawButton(buttonChangedX, buttonChangedY, "操作音 ◼︎");
       } else {
-        drawButton(buttonChangedX, buttonChangedY, "change ▶︎");
+        drawButton(buttonChangedX, buttonChangedY, "操作音 ▶︎");
       }
 
       if (isShowDebug) {
-        drawButton(buttonDebugX, buttonDebugY, "hide pitch");
+        drawButton(buttonDebugX, buttonDebugY, "ピッチを隠す", true);
       } else {
-        drawButton(buttonDebugX, buttonDebugY, "show pitch");
+        drawButton(buttonDebugX, buttonDebugY, "ピッチを表示", true);
       }
 
       osc2.freq(changeHz);
 
       // 音の振幅を取得
       const level = amplitude.getLevel();
-      const diameter = p.map(level, 0, 1, 0, canvasSize * 0.8);
+      const diameter = p.map(level, 0, 1, 0, canvasSize);
 
       // 円を描く
       p.noFill();
@@ -94,12 +95,33 @@ const AudioAnimationPlayer = () => {
       } else if (!isStartFixed && isStartChange) {
         p.stroke(50 ,200, 255); 
       } 
-     
       p.ellipse(p.width / 2, p.height / 2, diameter, diameter);
+
 
       if (isShowDebug) {
         p.fill(255);
-        p.text("pitch : " + changeHz, 50, 50);
+        p.noStroke();
+        p.textSize(13)
+        p.textAlign(p.CENTER, p.CENTER);
+
+        p.text("基準音 : ", canvasSize * 0.5, buttonH / 2);
+        p.text("操作音 : ", canvasSize * 0.65, buttonH / 2);
+
+        if (isStartFixed) {
+          p.text(fixedHz + "Hz", canvasSize * 0.565, buttonH / 2);
+        } else {
+          p.text("- Hz", canvasSize * 0.565, buttonH / 2);
+        }
+
+        if (isStartChange) {
+          p.textAlign(p.LEFT, p.CENTER);
+          p.text(Math.floor(changeHz * 10000) / 10000 + "Hz", canvasSize * 0.685, buttonH / 2);
+          // 設定直す
+          p.textAlign(p.CENTER, p.CENTER);
+        } else {
+          p.text("- Hz", canvasSize * 0.715, buttonH/2);
+        }
+       
       }
     };
 
@@ -134,13 +156,18 @@ const AudioAnimationPlayer = () => {
       }
     };
 
-    function drawButton(x, y, text) {
+    function drawButton(x, y, text, isLong = false) {
+      let w = buttonW;
+      if (isLong) {
+        w = buttonWLong
+      }
       p.fill(230);
       p.noStroke();
-      p.rect(x, y, buttonW, buttonH);
+      p.rect(x, y, w, buttonH);
       p.fill(0);
+      p.textSize(12)
       p.textAlign(p.CENTER, p.CENTER);
-      p.text(text, x + buttonW / 2, y + buttonH / 2);
+      p.text(text, x + w / 2, y + buttonH / 2);
     }
 
     function inBox(x, y) {
