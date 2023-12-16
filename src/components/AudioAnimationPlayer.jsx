@@ -2,10 +2,11 @@ import "../sound";
 import { ReactP5Wrapper } from "react-p5-wrapper";
 import p5 from "p5";
 import "p5/lib/addons/p5.sound";
+import "../style.css"
 
 const AudioAnimationPlayer = () => {
   const canvasSizeW = window.innerWidth;
-  const canvasSizeH = window.innerHeight <= window.innerWidth ? innerHeight : window.innerHeight;
+  const canvasSizeH = window.innerHeight * 0.9;
 
   const sketch = (p) => {
     let osc1, osc2;
@@ -238,8 +239,7 @@ const AudioAnimationPlayer = () => {
   };
 
   return (
-    <div className="App">
-      <div>チューニングしてみよう</div>
+    <div className="content">
       <ReactP5Wrapper sketch={sketch}></ReactP5Wrapper>
     </div>
   );
