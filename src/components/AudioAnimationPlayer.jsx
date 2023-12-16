@@ -28,7 +28,7 @@ const AudioAnimationPlayer = () => {
 
     let buttonDebugX = canvasSize * 0.3;
     let buttonDebugY = 0;
-    
+
     let isStartAll = false;
     let isStartFixed = false;
     let isStartChange = false;
@@ -53,7 +53,7 @@ const AudioAnimationPlayer = () => {
     };
 
     p.draw = () => {
-      p.background(200);
+      p.background(0);
 
       if (isStartAll) {
         drawButton(buttonX, buttonY, "all stop");
@@ -87,11 +87,18 @@ const AudioAnimationPlayer = () => {
 
       // 円を描く
       p.noFill();
-      p.stroke(100); // 赤い円（442Hzの音に対応）
+      if (isStartAll) {
+        p.stroke(150, 50, 255); 
+      } else if (isStartFixed && !isStartChange) {
+        p.stroke(255, 50, 200); 
+      } else if (!isStartFixed && isStartChange) {
+        p.stroke(50 ,200, 255); 
+      } 
+     
       p.ellipse(p.width / 2, p.height / 2, diameter, diameter);
 
       if (isShowDebug) {
-        p.fill(0);
+        p.fill(255);
         p.text("pitch : " + changeHz, 50, 50);
       }
     };
@@ -129,6 +136,7 @@ const AudioAnimationPlayer = () => {
 
     function drawButton(x, y, text) {
       p.fill(230);
+      p.noStroke();
       p.rect(x, y, buttonW, buttonH);
       p.fill(0);
       p.textAlign(p.CENTER, p.CENTER);
