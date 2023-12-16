@@ -35,7 +35,6 @@ const AudioAnimationPlayer = () => {
     let isStartFixed = false;
     let isStartChange = false;
     let isShowDebug = false;
-    let startY;
 
     p.setup = () => {
       p.createCanvas(canvasSizeW, canvasSizeH);
@@ -116,8 +115,7 @@ const AudioAnimationPlayer = () => {
 
         if (isStartChange) {
           p.textAlign(p.LEFT, p.CENTER);
-          p.text(Math.floor(changeHz * 10000) / 10000 + "Hz", canvasSizeW * 0.685, buttonH / 2);
-          // 設定直す
+          p.text(Math.floor(changeHz * 1000) / 1000 + "Hz", canvasSizeW * 0.685, buttonH / 2);
           p.textAlign(p.CENTER, p.CENTER);
         } else {
           p.text("- Hz", canvasSizeW * 0.715, buttonH/2);
@@ -127,12 +125,7 @@ const AudioAnimationPlayer = () => {
     };
 
     p.mouseDragged = () => {
-      changeHz += (startY - p.mouseY) * 0.0001;
-    };
-
-    p.mousePressed = () => {
-      // マウスをクリックしたときの処理
-      startY = p.mouseY;
+      changeHz += (p.pmouseY - p.mouseY) * 0.001;
     };
 
     p.mouseClicked = () => {
