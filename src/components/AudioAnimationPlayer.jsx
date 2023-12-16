@@ -2,7 +2,7 @@ import "../sound";
 import { ReactP5Wrapper } from "react-p5-wrapper";
 import p5 from "p5";
 import "p5/lib/addons/p5.sound";
-import "../style.css"
+import "../style.css";
 
 const AudioAnimationPlayer = () => {
   const canvasSizeW = window.innerWidth;
@@ -89,19 +89,18 @@ const AudioAnimationPlayer = () => {
       // 円を描く
       p.noFill();
       if (isStartAll) {
-        p.stroke(150, 50, 255); 
+        p.stroke(150, 50, 255);
       } else if (isStartFixed && !isStartChange) {
-        p.stroke(255, 50, 200); 
+        p.stroke(255, 50, 200);
       } else if (!isStartFixed && isStartChange) {
-        p.stroke(50 ,200, 255); 
-      } 
+        p.stroke(50, 200, 255);
+      }
       p.ellipse(p.width / 2, p.height / 2, diameter, diameter);
-
 
       if (isShowDebug) {
         p.fill(255);
         p.noStroke();
-        p.textSize(13)
+        p.textSize(13);
         p.textAlign(p.CENTER, p.CENTER);
 
         p.text("基準音 : ", canvasSizeW * 0.5, buttonH / 2);
@@ -115,12 +114,15 @@ const AudioAnimationPlayer = () => {
 
         if (isStartChange) {
           p.textAlign(p.LEFT, p.CENTER);
-          p.text(Math.floor(changeHz * 1000) / 1000 + "Hz", canvasSizeW * 0.685, buttonH / 2);
+          p.text(
+            Math.floor(changeHz * 1000) / 1000 + "Hz",
+            canvasSizeW * 0.685,
+            buttonH / 2
+          );
           p.textAlign(p.CENTER, p.CENTER);
         } else {
-          p.text("- Hz", canvasSizeW * 0.715, buttonH/2);
+          p.text("- Hz", canvasSizeW * 0.715, buttonH / 2);
         }
-       
       }
     };
 
@@ -153,7 +155,7 @@ const AudioAnimationPlayer = () => {
     function drawButton(x, y, text, isLong = false) {
       let w = buttonW;
       if (isLong) {
-        w = buttonWLong
+        w = buttonWLong;
       }
       p.fill(230);
       p.stroke(255);
@@ -161,7 +163,7 @@ const AudioAnimationPlayer = () => {
       p.noStroke();
 
       p.fill(0);
-      p.textSize(12)
+      p.textSize(12);
       p.textAlign(p.CENTER, p.CENTER);
       p.text(text, x + w / 2, y + buttonH / 2);
     }
