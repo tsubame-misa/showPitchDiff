@@ -56,21 +56,21 @@ const AudioAnimationPlayer = () => {
       p.background(0);
 
       if (isStartAll) {
-        drawButton(buttonX, buttonY, "all stop");
+        drawButton(buttonX, buttonY, "all ◼︎");
       } else {
-        drawButton(buttonX, buttonY, "all start");
+        drawButton(buttonX, buttonY, "all ▶︎");
       }
 
       if (isStartFixed) {
-        drawButton(buttonFixedX, buttonFixedY, "fiexd stop");
+        drawButton(buttonFixedX, buttonFixedY, "fiexd ◼︎");
       } else {
-        drawButton(buttonFixedX, buttonFixedY, "fixed start");
+        drawButton(buttonFixedX, buttonFixedY, "fixed ▶︎");
       }
 
       if (isStartChange) {
-        drawButton(buttonChangedX, buttonChangedY, "change stop");
+        drawButton(buttonChangedX, buttonChangedY, "change ◼︎");
       } else {
-        drawButton(buttonChangedX, buttonChangedY, "change start");
+        drawButton(buttonChangedX, buttonChangedY, "change ▶︎");
       }
 
       if (isShowDebug) {
